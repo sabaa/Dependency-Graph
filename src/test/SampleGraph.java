@@ -3,6 +3,7 @@ package test;
 import controller.DependencyGraph;
 import controller.Node;
 import controller.Port;
+import controller.events.DepGraphListener;
 
 /**
  * An example for making a dependency graph
@@ -12,6 +13,7 @@ import controller.Port;
 public class SampleGraph {
     public static void main(String[] args) {
         DependencyGraph graph = new DependencyGraph();
+        DepGraphListener listener = new DepGraphListener(graph);
 
         // Create nodes
         Node n1, n2, n3, n4, n5, n6;
@@ -91,6 +93,7 @@ public class SampleGraph {
         graph.addDependency(n4, n6);
 
         graph.update(n1);
+
 
         System.out.println("");
 

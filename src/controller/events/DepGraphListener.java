@@ -29,6 +29,13 @@ public class DepGraphListener implements ActionListener {
      */
     public void actionPerformed(ActionEvent e) { // todo must change the parameter to depgraphevent
         // todo ooooooooooooooooooooooooooooooooooooooooooooooo
-        System.out.println(e.getActionCommand());
+        if (e.getID() == 1) {
+            System.out.println("id = 1");
+            System.out.println(e.getActionCommand());
+        }
+        else if (e.getID() == 2) {
+            System.out.println("id = 2");
+            System.out.println(e.getActionCommand());
+        }
     }
 }
