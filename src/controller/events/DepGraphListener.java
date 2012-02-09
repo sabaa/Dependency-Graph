@@ -4,12 +4,14 @@ import controller.DependencyGraph;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.EventListener;
+import java.util.EventObject;
 
 /**
  * This class is a listener for dependency graph events
  * @author Saba Alimadadi
  */
-public class DepGraphListener implements ActionListener {
+public class DepGraphListener implements EventListener/*implements ActionListener */{
     /** Reference to the dependency graph */
     private DependencyGraph dependencyGraph;
 
@@ -19,23 +21,22 @@ public class DepGraphListener implements ActionListener {
      */
     public DepGraphListener(DependencyGraph dependencyGraph) {
         this.dependencyGraph = dependencyGraph;
-        dependencyGraph.addEventListener(this); // todo ooooooooooooooooooooooooooooooooooo
-        // todo oooooooooooooooooooooooooo
+        dependencyGraph.addEventListener(this);
+        // todo oooooooo
     }
 
     /**
      * This method catches and handles an event happened in dependency graph
      * @param e The event
      */
-    public void actionPerformed(ActionEvent e) { // todo must change the parameter to depgraphevent
-        // todo ooooooooooooooooooooooooooooooooooooooooooooooo
-        if (e.getID() == 1) {
+    public void actionPerformed(DepGraphEvent e) {
+        if (e.getId() == 1) {
             System.out.println("id = 1");
-            System.out.println(e.getActionCommand());
+            System.out.println(e.getCommand());
         }
-        else if (e.getID() == 2) {
+        else if (e.getId() == 2) {
             System.out.println("id = 2");
-            System.out.println(e.getActionCommand());
+            System.out.println(e.getCommand());
         }
     }
 }
