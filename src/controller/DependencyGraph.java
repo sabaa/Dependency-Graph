@@ -142,9 +142,9 @@ public class DependencyGraph {
         for (Node n : topologicallySortedList) {
             if (dependentOnUpdatedNode) {
                 if (n.isOnUpdatedNodePath())
-                    n.getOperation().evaluate();
+                    n.getOperation().update();
             } else if (n.getId() == updatedNode.getId()) {
-                n.getOperation().evaluate();
+                n.getOperation().update();
                 dependentOnUpdatedNode = true;
             }
         }

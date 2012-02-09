@@ -178,10 +178,19 @@ public class Operation {
     }
 
     /**
-     * This method executes the operation using input ports and updates the outputs
-     * Should be implemeted by the user
+     * This method calls the evaluate method that executes the operation using input ports and updates the outputs
+     * It also fires the appropriate update event
+     */
+    public void update() {
+        // todo throw an event
+        evaluate();
+    }
+
+    /**
+     * This method is for performing the operation based on input ports that could affect output ports.
+     * It should be implemented by the user
      */
     public void evaluate() {
-        // todo throw an event
+
     }
 }
