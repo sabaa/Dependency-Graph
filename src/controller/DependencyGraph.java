@@ -1,9 +1,6 @@
 package controller;
 
-import controller.events.AddDependencyEvent;
-import controller.events.AddNodeEvent;
-import controller.events.DepGraphEvent;
-import controller.events.DepGraphListener;
+import controller.events.*;
 
 import java.awt.event.ActionListener;
 import java.util.*;
@@ -138,11 +135,14 @@ public class DependencyGraph {
         for (Node n : topologicallySortedList) {
             if (dependentOnUpdatedNode) {
                 if (n.isOnUpdatedNodePath()) {
-                    // todo update event
                     n.getOperation().update();
+                    UpdateEvent updateEvent = new UpdateEvent(this, n);
+                    fireEvent(updateEvent);
                 }
             } else if (n.getId() == updatedNode.getId()) {
                 n.getOperation().update();
+                UpdateEvent updateEvent = new UpdateEvent(this, n);
+                fireEvent(updateEvent);
                 dependentOnUpdatedNode = true;
             }
         }
