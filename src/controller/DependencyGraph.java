@@ -6,10 +6,7 @@ import controller.events.DepGraphEvent;
 import controller.events.DepGraphListener;
 
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.EventObject;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * The Dependency Graph class. Contains and handles all dependency nodes and their dependency relations
@@ -63,7 +60,6 @@ public class DependencyGraph {
      *
      * @param dependedOnNode The other nodes depend on this
      * @param dependentNode  This node depends on the other node
-     * @param key            The key that determines the relation between the two nodes
      */
     public void addDependency(Node dependedOnNode, Node dependentNode/*, String key*/) {
         if (dependedOnNode == null || dependentNode == null/* || key == null*/)
@@ -141,8 +137,10 @@ public class DependencyGraph {
         boolean dependentOnUpdatedNode = false;
         for (Node n : topologicallySortedList) {
             if (dependentOnUpdatedNode) {
-                if (n.isOnUpdatedNodePath())
+                if (n.isOnUpdatedNodePath()) {
+                    // todo update event
                     n.getOperation().update();
+                }
             } else if (n.getId() == updatedNode.getId()) {
                 n.getOperation().update();
                 dependentOnUpdatedNode = true;
@@ -271,7 +269,7 @@ public class DependencyGraph {
     // todo the event should be generated outside (DepGraphEvent e = new DepGraphEvent(this))
     private synchronized void fireEvent(DepGraphEvent e) {
         for (Object o : listeners) {
-            ActionListener listener = (ActionListener)o;
+            DepGraphListener listener = (DepGraphListener)o;
             listener.actionPerformed(e);
         }
     }
