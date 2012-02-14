@@ -1,5 +1,7 @@
 package controller;
 
+import controller.events.UpdateEvent;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -127,14 +129,20 @@ public class Operation {
         // Add the operation to the list of operations that the port plays as input for
         p.addRelatedOperations_inputPort(this);
         p.setModified(true);//p.setOnUpdatePath(true);
-        // Check to update the dependency relations between nodes in the graph        
-        for (Object o : p.getRelatedOperations_outputPort()) {
-            Operation op = (Operation)o;
-            // If the two nodes are node already connected (the node containing the op and the node containing the p
-            if (!this.node.hasInput(op.getNode())) {
-                this.getNode().addInput(op.getNode());
-                //op.getNode().addOutput(this.getNode());
-                // whether you add input or output to a node the reverse relation is made automatically (???)
+
+        // todo oooooooooooooooooooooooooooooooooooooooooo
+        // If the operation was connected to a node (and hence to the graph)
+        if (this.node != null) {
+            // todo oooooooooooooooooooooooooooooooooooooooooo
+            // Check to update the dependency relations between nodes in the graph
+            for (Object o : p.getRelatedOperations_outputPort()) {
+                Operation op = (Operation) o;
+                // If the two nodes are node already connected (the node containing the op and the node containing the p
+                if (!this.node.hasInput(op.getNode())) {
+                    this.getNode().addInput(op.getNode());
+                    //op.getNode().addOutput(this.getNode());
+                    // whether you add input or output to a node the reverse relation is made automatically (???)
+                }
             }
         }
         // throw an event
@@ -182,8 +190,8 @@ public class Operation {
      * It also fires the appropriate update event
      */
     public void update() {
-        // todo throw an event
         evaluate();
+        // todo throw UpdateEvent: it's better here or in dep graph?        
     }
 
     /**
