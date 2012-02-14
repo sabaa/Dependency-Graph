@@ -10,22 +10,26 @@ import java.util.Iterator;
 public class DivOp extends MathOperation {
     public void evaluate() {
         double first = 0, second = 0;
-        Iterator itr = this.getInput().keySet().iterator();
-        if (itr.hasNext()) {
-            String key = (String) itr.next();
-            Port p = this.getInput().get(key);
-            first = Double.valueOf(p.getValue().toString());
+
+        if (this.getInput().get("first") != null) {
+            first = Double.valueOf(this.getInput().get("first").getValue().toString());
         }
-        if (itr.hasNext()) {
-            String key = (String) itr.next();
-            Port p = this.getInput().get(key);
-            second = Double.valueOf(p.getValue().toString());
+        if (this.getInput().get("second") != null) {
+            second = Double.valueOf(this.getInput().get("second").getValue().toString());
         }
-        itr = this.getOutput().keySet().iterator();
+
+        double f = (second == 0)?-Integer.MAX_VALUE:(first/second);
+        System.out.println("Div -> res: " + f + " - Node: " + node.getId());
+        Iterator itr = this.getOutput().keySet().iterator();
         if (itr.hasNext()) {
             String key = (String) itr.next();
-            Port p = this.getInput().get(key);
-            p.setValue(first / second);
+            Port p = this.getOutput().get(key);
+            if (second == 0) {
+                System.err.println("ILLEGAL DIVISION");
+                p.setValue(Integer.MAX_VALUE);
+            }
+            else
+                p.setValue(first / second);
         }
     }
 }
