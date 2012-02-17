@@ -3,6 +3,9 @@ package unittest;
 import controller.DependencyGraph;
 import controller.Node;
 import controller.Port;
+import org.junit.Test;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
 
 import java.util.ArrayList;
 
@@ -13,7 +16,8 @@ import static java.lang.Math.pow;
  * @author Saba Alimadadi
  */
 public class TestGraph {
-    public static void main(String[] args) {
+    @Test
+    public void oneOutputTest() {
         /**
          * TEST 1
          * This is a test for checking the propagation in the graph and checking the final result of update
@@ -196,26 +200,26 @@ public class TestGraph {
         graph.addDependency(nodeList.get(13), nodeList.get(14));
 
         graph.update(nodeList.get(0));
-        System.out.println("-----------");
         graph.update(nodeList.get(1));
-        System.out.println("-----------");
         graph.update(nodeList.get(5));
-        System.out.println("-----------");
         graph.update(nodeList.get(6));
-        System.out.println("-----------");
         graph.update(nodeList.get(7));
-        System.out.println("-----------");
         graph.update(nodeList.get(9));
-        System.out.println("-----------");
         graph.update(nodeList.get(11));
-        System.out.println("-----------");
 
         
-        double result = (Math.pow(a, 2) * (a + Math.pow(b, 2)) * c - d) * (a + Math.pow(b, 2) + e / f + g);
-        System.out.println("-------------------------------------------");
-        System.out.println("Math: " + result);
-        System.out.println("Ours: " + nodeList.get(14).getOperation().getOutput().get("21").getValue());
-        System.out.println("-------------------------------------------");
+        double expected = (Math.pow(a, 2) * (a + Math.pow(b, 2)) * c - d) * (a + Math.pow(b, 2) + e / f + g);
+        double result = Double.parseDouble(nodeList.get(14).getOperation().getOutput().get("21").getValue().toString());
 
+        org.junit.Assert.assertTrue(expected == result);
+//        org.junit.Assert.assertEquals(expected, result, 0.001);
+
+    }
+
+    public static void main(String[] args) {
+        Result result = org.junit.runner.JUnitCore.runClasses(TestGraph.class);
+        for (Failure failure : result.getFailures()) {
+            System.out.println(failure.toString());
+        }
     }
 }

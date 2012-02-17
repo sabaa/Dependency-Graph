@@ -19,7 +19,7 @@ public class DivOp extends MathOperation {
         }
 
         double f = (second == 0)?-Integer.MAX_VALUE:(first/second);
-        System.out.println("Div -> res: " + f + " - Node: " + node.getId());
+        //System.out.println("Div -> res: " + f + " - Node: " + node.getId());
         Iterator itr = this.getOutput().keySet().iterator();
         if (itr.hasNext()) {
             String key = (String) itr.next();

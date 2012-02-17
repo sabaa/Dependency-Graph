@@ -16,7 +16,7 @@ public class ConstantOp extends MathOperation {
             Port p = this.getInput().get(key);
             num = Double.valueOf(p.getValue().toString());
         }
-        System.out.println("Cons -> num: " + num + " - Node: " + node.getId());
+        //System.out.println("Cons -> num: " + num + " - Node: " + node.getId());
         itr = this.getOutput().keySet().iterator();
         if (itr.hasNext()) {
             String key = (String) itr.next();

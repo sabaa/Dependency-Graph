@@ -17,7 +17,7 @@ public class SubOp extends MathOperation {
             second = Double.valueOf(this.getInput().get("second").getValue().toString());
         }
 
-        System.out.println("Sub -> res: " + (first - second) + " - Node: " + node.getId());
+        //System.out.println("Sub -> res: " + (first - second) + " - Node: " + node.getId());
         Iterator itr = this.getOutput().keySet().iterator();
         if (itr.hasNext()) {
             String key = (String) itr.next();

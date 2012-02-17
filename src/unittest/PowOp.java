@@ -17,7 +17,7 @@ public class PowOp extends MathOperation {
             double num = Double.valueOf(p.getValue().toString());
             power = num * num;
         }
-        System.out.println("Pow -> res: " + power + " - Node: " + node.getId());
+        //System.out.println("Pow -> res: " + power + " - Node: " + node.getId());
         itr = this.getOutput().keySet().iterator();
         if (itr.hasNext()) {
             String key = (String) itr.next();
