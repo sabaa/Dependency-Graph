@@ -192,12 +192,11 @@ public class TestGraph {
         
     }
 
+    /**
+     * This is a test for checking the propagation in the graph and checking the final result of update when all input ports are updated
+     */
     @Test
-    public void oneOutputTest() {
-        /**
-         * TEST 1
-         * This is a test for checking the propagation in the graph and checking the final result of update
-         */
+    public void oneOutputTest0() {
 
         a = 1;
         b = 2;
@@ -272,6 +271,102 @@ public class TestGraph {
         org.junit.Assert.assertTrue(expected == result);
 //        org.junit.Assert.assertEquals(expected, result, 0.001);
 
+    }
+
+    /**
+     * This test method checks the propagation in the graph after updating ports a, b & c
+     */
+    @Test
+    public void oneOutputTest1() {
+        a = 1;
+        b = 2;
+        c = 4;
+        f = 1; // Not effective in update, just for not having divide by zero in expected equation
+
+        portList.get(1).setValue(a);
+        portList.get(0).setValue(b);
+        portList.get(5).setValue(c);
+        portList.get(11).setValue(d);
+        portList.get(6).setValue(e);
+        portList.get(7).setValue(f);
+        portList.get(14).setValue(g);
+
+
+        // for division and multiplication
+        portList.get(8).setValue(1);
+        portList.get(10).setValue(1);
+        portList.get(19).setValue(1);
+        portList.get(20).setValue(1);
+        portList.get(12).setValue(1);
+        portList.get(13).setValue(1);
+
+        graph.update(nodeList.get(0));
+        graph.update(nodeList.get(1));
+        graph.update(nodeList.get(5));
+
+        double expected = (Math.pow(a, 2) * (a + Math.pow(b, 2)) * c - d) * (a + Math.pow(b, 2) + e / f + g);
+        double result = Double.parseDouble(nodeList.get(14).getOperation().getOutput().get("21").getValue().toString());
+
+        org.junit.Assert.assertTrue(expected == result);
+    }
+
+    /**
+     * This test method checks the propagation in the graph after updating port d
+     */
+    @Test
+    public void oneOutputTest2() {
+        d = 0.5;
+        f = 1; // Not effective in update, just for not having divide by zero in expected equation
+
+        portList.get(11).setValue(d);
+
+        // for division and multiplication
+        portList.get(8).setValue(1);
+        portList.get(10).setValue(1);
+        portList.get(19).setValue(1);
+        portList.get(20).setValue(1);
+        portList.get(12).setValue(1);
+        portList.get(13).setValue(1);
+
+        graph.update(nodeList.get(5));
+
+        double expected = (Math.pow(a, 2) * (a + Math.pow(b, 2)) * c - d) * (a + Math.pow(b, 2) + e / f + g);
+        double result = Double.parseDouble(nodeList.get(14).getOperation().getOutput().get("21").getValue().toString());
+
+        org.junit.Assert.assertTrue(expected == result);
+    }
+
+    /**
+     * This test method checks the propagation in the graph after updating ports e, f
+     */
+    @Test
+    public void oneOutputTest3() {
+        e = 3;
+        f = 4.5;
+
+        portList.get(1).setValue(a);
+        portList.get(0).setValue(b);
+        portList.get(5).setValue(c);
+        portList.get(11).setValue(d);
+        portList.get(6).setValue(e);
+        portList.get(7).setValue(f);
+        portList.get(14).setValue(g);
+
+        // for division and multiplication
+        portList.get(8).setValue(1);
+        portList.get(10).setValue(1);
+        portList.get(19).setValue(1);
+        portList.get(20).setValue(1);
+        portList.get(12).setValue(1);
+        portList.get(13).setValue(1);
+
+        graph.update(nodeList.get(7));
+        graph.update(nodeList.get(9));
+
+        double expected = (Math.pow(a, 2) * (a + Math.pow(b, 2)) * c - d) * (a + Math.pow(b, 2) + e / f + g);
+        double result = Double.parseDouble(nodeList.get(14).getOperation().getOutput().get("21").getValue().toString());
+
+        org.junit.Assert.assertTrue(expected == result);
     }
 
     /**
